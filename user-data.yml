@@ -1,11 +1,15 @@
 #cloud-config
-package_update: true
-package_upgrade: true
+system_info:
+  default_user:
+    name: shikun
 
 apt:
   primary:
     - arches: [default]
       uri: https://mirrors.tuna.tsinghua.edu.cn/ubuntu/
+
+package_update: true
+package_upgrade: true
 
 packages:
   - net-tools
