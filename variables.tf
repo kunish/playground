@@ -22,10 +22,6 @@ variable "vsphere_resource_pool_host" {
   sensitive = true
 }
 
-variable "vsphere_content_library_name" {
-  type = string
-}
-
 variable "vsphere_datastore" {
   type = string
 }
@@ -34,7 +30,16 @@ variable "vm_network" {
   type = string
 }
 
+
+variable "vsphere_content_library_name" {
+  type = string
+}
+
 variable "vm_content_library_template_name" {
+  type = string
+}
+
+variable "vm_content_library_template_url" {
   type = string
 }
 
@@ -44,6 +49,7 @@ variable "vm_guest_id" {
 
 variable "vms" {
   type = map(object({
+    folder      = string
     mac_address = string
   }))
 }
@@ -64,7 +70,7 @@ variable "vm_disk_size" {
   type = number
 }
 
-variable "vm_ssh_public_keys" {
+variable "vm_ssh_public_key_path" {
   type      = string
   sensitive = true
 }

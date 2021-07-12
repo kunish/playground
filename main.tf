@@ -25,37 +25,24 @@ data "vsphere_network" "network" {
   datacenter_id = data.vsphere_datacenter.datacenter.id
 }
 
-data "vsphere_content_library" "library" {
+resource "vsphere_content_library" "library" {
   name = var.vsphere_content_library_name
-}
-
-data "vsphere_content_library_item" "item" {
-  name       = var.vm_content_library_template_name
-  type       = "vapp"
-  library_id = data.vsphere_content_library.library.id
-}
-
-locals {
-  vms = {
-    gateway = {
-      mac_address = "20:a7:8e:3c:78:c2"
-    }
-    clash = {
-      mac_address = "00:50:56:97:8a:30"
-    }
-    workstation = {
-      mac_address = "00:0c:29:27:41:47"
-    }
-    jarvy-workstation = {
-      mac_address = "00:50:56:82:3c:5e"
-    }
+  publication {
+    published = true
   }
+  storage_backing = [data.vsphere_datastore.datastore.id]
+}
+
+resource "vsphere_content_library_item" "template" {
+  name       = var.vm_content_library_template_name
+  file_url   = var.vm_content_library_template_url
+  library_id = vsphere_content_library.library.id
 }
 
 resource "vsphere_virtual_machine" "vm" {
   for_each         = var.vms
   name             = each.key
-  folder           = var.vm_folder
+  folder           = each.value.folder
   resource_pool_id = data.vsphere_resource_pool.pool.id
   datastore_id     = data.vsphere_datastore.datastore.id
 
@@ -67,8 +54,9 @@ resource "vsphere_virtual_machine" "vm" {
   memory   = var.vm_memory
 
   network_interface {
-    network_id  = data.vsphere_network.network.id
-    mac_address = each.value.mac_address
+    network_id     = data.vsphere_network.network.id
+    use_static_mac = true
+    mac_address    = each.value.mac_address
   }
 
   # required for vapp configuration
@@ -82,14 +70,14 @@ resource "vsphere_virtual_machine" "vm" {
   }
 
   clone {
-    template_uuid = data.vsphere_content_library_item.item.id
+    template_uuid = vsphere_content_library_item.template.id
   }
 
   vapp {
     properties = {
       "hostname" : each.key
       "instance-id" : each.key
-      "public-keys" : var.vm_ssh_public_keys
+      "public-keys" : file(var.vm_ssh_public_key_path)
       "user-data" : base64encode(file(var.vm_user_data_file_path))
     }
   }
