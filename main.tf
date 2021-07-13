@@ -1,3 +1,11 @@
+terraform {
+  required_providers {
+    vsphere = {
+      source = "hashicorp/vsphere"
+    }
+  }
+}
+
 provider "vsphere" {
   user           = var.vsphere_user
   password       = var.vsphere_password
