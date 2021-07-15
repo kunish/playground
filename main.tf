@@ -61,6 +61,10 @@ resource "vsphere_virtual_machine" "vm" {
   num_cpus = var.vm_num_cpus
   memory   = var.vm_memory
 
+  # https://kb.vmware.com/s/article/2007240
+  # esxi 7.0U2
+  hardware_version = 19
+
   network_interface {
     network_id     = data.vsphere_network.network.id
     use_static_mac = true
