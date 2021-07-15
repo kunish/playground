@@ -12,8 +12,9 @@ package_update: true
 package_upgrade: true
 
 packages:
-  - net-tools
   - dnsutils
+  - net-tools
+  - traceroute
   - docker.io
   - docker-compose
   - neovim
