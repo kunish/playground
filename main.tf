@@ -4,6 +4,13 @@ terraform {
       source = "hashicorp/vsphere"
     }
   }
+
+  backend "remote" {
+    organization = "kunish"
+    workspaces {
+      name = "playground"
+    }
+  }
 }
 
 provider "vsphere" {
