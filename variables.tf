@@ -26,10 +26,13 @@ variable "vsphere_datastore" {
   type = string
 }
 
+variable "vsphere_folders" {
+  type = list(string)
+}
+
 variable "vm_network" {
   type = string
 }
-
 
 variable "vsphere_content_library_name" {
   type = string
@@ -52,10 +55,6 @@ variable "vms" {
     folder      = string
     mac_address = string
   }))
-}
-
-variable "vm_folder" {
-  type = string
 }
 
 variable "vm_num_cpus" {

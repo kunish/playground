@@ -40,6 +40,13 @@ data "vsphere_network" "network" {
   datacenter_id = data.vsphere_datacenter.datacenter.id
 }
 
+resource "vsphere_folder" "folders" {
+  for_each      = toset(var.vsphere_folders)
+  type          = "vm"
+  path          = each.key
+  datacenter_id = data.vsphere_datacenter.datacenter.id
+}
+
 resource "vsphere_content_library" "library" {
   name = var.vsphere_content_library_name
   publication {
@@ -75,10 +82,10 @@ resource "vsphere_virtual_machine" "vm" {
   network_interface {
     network_id     = data.vsphere_network.network.id
     use_static_mac = true
-    mac_address    = each.value.mac_address
+    mac_address    = lower(each.value.mac_address)
   }
 
-  # required for vapp configuration
+  # required for cloud-init
   cdrom {
     client_device = true
   }
