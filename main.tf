@@ -103,8 +103,7 @@ resource "vsphere_virtual_machine" "vm" {
     properties = {
       "hostname" : each.key
       "instance-id" : each.key
-      "public-keys" : file(var.vm_ssh_public_key_path)
-      "user-data" : base64encode(file(var.vm_user_data_file_path))
+      "seedfrom" : var.vm_vapp_seedfrom
     }
   }
 }

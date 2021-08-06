@@ -69,11 +69,6 @@ variable "vm_disk_size" {
   type = number
 }
 
-variable "vm_ssh_public_key_path" {
-  type      = string
-  sensitive = true
-}
-
-variable "vm_user_data_file_path" {
+variable "vm_vapp_seedfrom" {
   type = string
 }
