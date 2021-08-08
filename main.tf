@@ -72,8 +72,8 @@ resource "vsphere_virtual_machine" "vm" {
   enable_disk_uuid = true
 
   guest_id = var.vm_guest_id
-  num_cpus = var.vm_num_cpus
-  memory   = var.vm_memory
+  num_cpus = each.value.num_cpus
+  memory   = each.value.memory
 
   # https://kb.vmware.com/s/article/2007240
   # esxi 7.0U2
@@ -92,7 +92,7 @@ resource "vsphere_virtual_machine" "vm" {
 
   disk {
     label = "disk0"
-    size  = var.vm_disk_size
+    size  = each.value.disk_size
   }
 
   clone {
@@ -103,7 +103,7 @@ resource "vsphere_virtual_machine" "vm" {
     properties = {
       "hostname" : each.key
       "instance-id" : each.key
-      "seedfrom" : var.vm_vapp_seedfrom
+      "seedfrom" : each.value.vapp_seedfrom
     }
   }
 }

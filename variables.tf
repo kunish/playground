@@ -53,23 +53,11 @@ variable "vm_guest_id" {
 variable "vms" {
   type = map(object({
     folder         = string
+    num_cpus       = number
+    memory         = number
+    disk_size      = number
     use_static_mac = bool
     mac_address    = string
+    vapp_seedfrom  = string
   }))
-}
-
-variable "vm_num_cpus" {
-  type = number
-}
-
-variable "vm_memory" {
-  type = number
-}
-
-variable "vm_disk_size" {
-  type = number
-}
-
-variable "vm_vapp_seedfrom" {
-  type = string
 }
