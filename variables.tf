@@ -52,8 +52,9 @@ variable "vm_guest_id" {
 
 variable "vms" {
   type = map(object({
-    folder      = string
-    mac_address = string
+    folder         = string
+    use_static_mac = bool
+    mac_address    = string
   }))
 }
 

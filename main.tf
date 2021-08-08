@@ -81,7 +81,7 @@ resource "vsphere_virtual_machine" "vm" {
 
   network_interface {
     network_id     = data.vsphere_network.network.id
-    use_static_mac = true
+    use_static_mac = each.value.use_static_mac
     mac_address    = lower(each.value.mac_address)
   }
 
