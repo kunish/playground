@@ -21,6 +21,17 @@ provider "vsphere" {
   allow_unverified_ssl = true
 }
 
+data "terraform_remote_state" "router" {
+  backend = "remote"
+
+  config = {
+    organization = "kunish"
+    workspaces = {
+      name = "router"
+    }
+  }
+}
+
 data "vsphere_datacenter" "datacenter" {
   name = var.vsphere_datacenter_name
 }
@@ -81,8 +92,8 @@ resource "vsphere_virtual_machine" "vm" {
 
   network_interface {
     network_id     = data.vsphere_network.network.id
-    use_static_mac = each.value.use_static_mac
-    mac_address    = lower(each.value.mac_address)
+    use_static_mac = true
+    mac_address    = lower(data.terraform_remote_state.router.outputs.leases[each.key].macaddress)
   }
 
   # required for cloud-init
