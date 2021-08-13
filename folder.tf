@@ -1,5 +1,5 @@
 locals {
-  folders = ["cluster"]
+  folders = ["staging", "production"]
 }
 
 resource "vsphere_folder" "folders" {
