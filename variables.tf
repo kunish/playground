@@ -26,10 +26,6 @@ variable "vsphere_datastore" {
   type = string
 }
 
-variable "vsphere_folders" {
-  type = list(string)
-}
-
 variable "vm_network" {
   type = string
 }
@@ -48,14 +44,4 @@ variable "vm_content_library_template_url" {
 
 variable "vm_guest_id" {
   type = string
-}
-
-variable "vms" {
-  type = map(object({
-    folder        = string
-    num_cpus      = number
-    memory        = number
-    disk_size     = number
-    vapp_seedfrom = string
-  }))
 }
