@@ -1,14 +1,3 @@
-data "terraform_remote_state" "router" {
-  backend = "remote"
-
-  config = {
-    organization = "kunish"
-    workspaces = {
-      name = "router"
-    }
-  }
-}
-
 data "vsphere_datacenter" "datacenter" {
   name = "Datacenter"
 }
