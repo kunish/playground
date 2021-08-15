@@ -1,6 +1,6 @@
 resource "vsphere_vapp_container" "cluster" {
   name                    = "cluster"
-  parent_resource_pool_id = data.vsphere_resource_pool.pool.id
+  parent_resource_pool_id = data.vsphere_resource_pool.emc_pool.id
 }
 
 resource "vsphere_vapp_entity" "entity_cluster_proxy" {

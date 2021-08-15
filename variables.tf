@@ -13,21 +13,14 @@ variable "vsphere_server" {
   sensitive = true
 }
 
-variable "vsphere_datacenter_name" {
-  type = string
-}
-
-variable "vsphere_resource_pool_host" {
+variable "esxi_username" {
   type      = string
   sensitive = true
 }
 
-variable "vsphere_datastore" {
-  type = string
-}
-
-variable "vm_network" {
-  type = string
+variable "esxi_password" {
+  type      = string
+  sensitive = true
 }
 
 variable "vsphere_content_library_name" {
