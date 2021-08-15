@@ -1,14 +1,3 @@
-locals {
-  folders = ["staging", "production"]
-}
-
-resource "vsphere_folder" "folders" {
-  for_each      = toset(local.folders)
-  type          = "vm"
-  path          = each.key
-  datacenter_id = vsphere_datacenter.datacenter.moid
-}
-
 module "vm_jarvy" {
   source = "./modules/vm"
 
@@ -16,7 +5,7 @@ module "vm_jarvy" {
   resource_pool_id = data.vsphere_resource_pool.emc_pool.id
   datastore_id     = data.vsphere_datastore.datastore.id
   template_uuid    = vsphere_content_library_item.template.id
-  guest_id         = var.vm_guest_id
+  guest_id         = "ubuntu64Guest"
   num_cpus         = 4
   memory           = 4096
   network_id       = vsphere_distributed_port_group.dpg.id
@@ -33,7 +22,7 @@ module "vm_mini" {
   resource_pool_id = data.vsphere_resource_pool.emc_pool.id
   datastore_id     = data.vsphere_datastore.datastore.id
   template_uuid    = vsphere_content_library_item.template.id
-  guest_id         = var.vm_guest_id
+  guest_id         = "ubuntu64Guest"
   num_cpus         = 4
   memory           = 4096
   network_id       = vsphere_distributed_port_group.dpg.id
@@ -50,7 +39,7 @@ module "vm_large" {
   resource_pool_id = data.vsphere_resource_pool.emc_pool.id
   datastore_id     = data.vsphere_datastore.datastore.id
   template_uuid    = vsphere_content_library_item.template.id
-  guest_id         = var.vm_guest_id
+  guest_id         = "ubuntu64Guest"
   num_cpus         = 8
   memory           = 8192
   network_id       = vsphere_distributed_port_group.dpg.id
@@ -67,7 +56,7 @@ module "vm_cluster_proxy" {
   resource_pool_id = vsphere_vapp_container.cluster.id
   datastore_id     = data.vsphere_datastore.datastore.id
   template_uuid    = vsphere_content_library_item.template.id
-  guest_id         = var.vm_guest_id
+  guest_id         = "ubuntu64Guest"
   num_cpus         = 1
   memory           = 1024
   network_id       = vsphere_distributed_port_group.dpg.id
@@ -84,7 +73,7 @@ module "vm_cluster_controlplane" {
   resource_pool_id = vsphere_vapp_container.cluster.id
   datastore_id     = data.vsphere_datastore.datastore.id
   template_uuid    = vsphere_content_library_item.template.id
-  guest_id         = var.vm_guest_id
+  guest_id         = "ubuntu64Guest"
   num_cpus         = 4
   memory           = 4096
   network_id       = vsphere_distributed_port_group.dpg.id
@@ -101,7 +90,7 @@ module "vm_cluster_worker" {
   resource_pool_id = vsphere_vapp_container.cluster.id
   datastore_id     = data.vsphere_datastore.datastore.id
   template_uuid    = vsphere_content_library_item.template.id
-  guest_id         = var.vm_guest_id
+  guest_id         = "ubuntu64Guest"
   num_cpus         = 8
   memory           = 8192
   network_id       = vsphere_distributed_port_group.dpg.id

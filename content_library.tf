@@ -1,5 +1,5 @@
 resource "vsphere_content_library" "library" {
-  name = var.vsphere_content_library_name
+  name = "main"
   publication {
     published = true
   }
@@ -7,7 +7,7 @@ resource "vsphere_content_library" "library" {
 }
 
 resource "vsphere_content_library_item" "template" {
-  name       = var.vm_content_library_template_name
-  file_url   = var.vm_content_library_template_url
+  name       = "focal-server-cloudimg-amd64"
+  file_url   = "https://mirrors.tuna.tsinghua.edu.cn/ubuntu-cloud-images/focal/current/focal-server-cloudimg-amd64.ova"
   library_id = vsphere_content_library.library.id
 }
