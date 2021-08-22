@@ -99,3 +99,17 @@ module "vm_cluster_worker" {
 
   vms = ["cluster-worker-1", "cluster-worker-2", "cluster-worker-3", "cluster-worker-4", "cluster-worker-5"]
 }
+
+module "vm_flatcar" {
+  source = "./modules/flatcar"
+
+  folder           = "staging"
+  resource_pool_id = data.vsphere_resource_pool.emc_pool.id
+  datastore_id     = data.vsphere_datastore.datastore.id
+  template_uuid    = vsphere_content_library_item.flatcar.id
+  num_cpus         = 8
+  memory           = 8192
+  network_id       = vsphere_distributed_port_group.dpg.id
+  disk_size        = 128
+  vms              = ["flatcar"]
+}
