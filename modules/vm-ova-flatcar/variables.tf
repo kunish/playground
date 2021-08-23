@@ -26,10 +26,18 @@ variable "memory" {
   type = number
 }
 
+variable "guest_id" {
+  type = string
+}
+
 variable "network_id" {
   type = string
 }
 
 variable "disk_size" {
   type = number
+}
+
+variable "ignition_config_url" {
+  type = string
 }

@@ -1,4 +1,16 @@
-resource "vsphere_virtual_machine" "flatcar" {
+
+data "terraform_remote_state" "router" {
+  backend = "remote"
+
+  config = {
+    organization = "kunish"
+    workspaces = {
+      name = "router"
+    }
+  }
+}
+
+resource "vsphere_virtual_machine" "vm" {
   for_each         = toset(var.vms)
   name             = each.key
   folder           = var.folder
@@ -8,7 +20,7 @@ resource "vsphere_virtual_machine" "flatcar" {
   # equivalent to disk.EnableUUID
   enable_disk_uuid = true
 
-  guest_id = "other5xLinux64Guest"
+  guest_id = var.guest_id
   num_cpus = var.num_cpus
   memory   = var.memory
 
@@ -19,7 +31,9 @@ resource "vsphere_virtual_machine" "flatcar" {
   wait_for_guest_net_timeout = 0
 
   network_interface {
-    network_id = var.network_id
+    network_id     = var.network_id
+    use_static_mac = true
+    mac_address    = lower(data.terraform_remote_state.router.outputs.leases[each.key].macaddress)
   }
 
   # required for cloud-init
@@ -38,8 +52,13 @@ resource "vsphere_virtual_machine" "flatcar" {
 
   vapp {
     properties = {
-      "guestinfo.ignition.config.url" : "http://pi2.kuin.sh/flatcar/ignition.json",
-      "guestinfo.interface.0.dhcp" : "yes",
+      "hostname" : each.key
+      "instance-id" : each.key
+      "seedfrom" : var.vapp_seedfrom
     }
   }
+}
+
+output "vms" {
+  value = vsphere_virtual_machine.vm
 }

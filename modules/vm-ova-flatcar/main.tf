@@ -9,7 +9,7 @@ data "terraform_remote_state" "router" {
   }
 }
 
-resource "vsphere_virtual_machine" "vm" {
+resource "vsphere_virtual_machine" "flatcar" {
   for_each         = toset(var.vms)
   name             = each.key
   folder           = var.folder
@@ -51,13 +51,8 @@ resource "vsphere_virtual_machine" "vm" {
 
   vapp {
     properties = {
-      "hostname" : each.key
-      "instance-id" : each.key
-      "seedfrom" : var.vapp_seedfrom
+      "guestinfo.ignition.config.url" : var.ignition_config_url,
+      "guestinfo.interface.0.dhcp" : "yes",
     }
   }
-}
-
-output "vms" {
-  value = vsphere_virtual_machine.vm
 }

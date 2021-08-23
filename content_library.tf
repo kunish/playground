@@ -6,7 +6,7 @@ resource "vsphere_content_library" "library" {
   storage_backing = [data.vsphere_datastore.datastore.id]
 }
 
-resource "vsphere_content_library_item" "template" {
+resource "vsphere_content_library_item" "ubuntu" {
   name       = "focal-server-cloudimg-amd64"
   file_url   = "https://mirrors.tuna.tsinghua.edu.cn/ubuntu-cloud-images/focal/current/focal-server-cloudimg-amd64.ova"
   library_id = vsphere_content_library.library.id

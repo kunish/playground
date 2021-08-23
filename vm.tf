@@ -1,10 +1,10 @@
 module "vm_jarvy" {
-  source = "./modules/vm"
+  source = "./modules/vm-ova-ubuntu"
 
   folder           = "production"
   resource_pool_id = data.vsphere_resource_pool.emc_pool.id
   datastore_id     = data.vsphere_datastore.datastore.id
-  template_uuid    = vsphere_content_library_item.template.id
+  template_uuid    = vsphere_content_library_item.ubuntu.id
   guest_id         = "ubuntu64Guest"
   num_cpus         = 4
   memory           = 4096
@@ -16,12 +16,12 @@ module "vm_jarvy" {
 }
 
 module "vm_mini" {
-  source = "./modules/vm"
+  source = "./modules/vm-ova-ubuntu"
 
   folder           = "production"
   resource_pool_id = data.vsphere_resource_pool.emc_pool.id
   datastore_id     = data.vsphere_datastore.datastore.id
-  template_uuid    = vsphere_content_library_item.template.id
+  template_uuid    = vsphere_content_library_item.ubuntu.id
   guest_id         = "ubuntu64Guest"
   num_cpus         = 4
   memory           = 4096
@@ -33,12 +33,12 @@ module "vm_mini" {
 }
 
 module "vm_large" {
-  source = "./modules/vm"
+  source = "./modules/vm-ova-ubuntu"
 
   folder           = "production"
   resource_pool_id = data.vsphere_resource_pool.emc_pool.id
   datastore_id     = data.vsphere_datastore.datastore.id
-  template_uuid    = vsphere_content_library_item.template.id
+  template_uuid    = vsphere_content_library_item.ubuntu.id
   guest_id         = "ubuntu64Guest"
   num_cpus         = 8
   memory           = 8192
@@ -50,12 +50,12 @@ module "vm_large" {
 }
 
 module "vm_cluster_proxy" {
-  source = "./modules/vm"
+  source = "./modules/vm-ova-ubuntu"
 
   folder           = null
   resource_pool_id = vsphere_vapp_container.cluster.id
   datastore_id     = data.vsphere_datastore.datastore.id
-  template_uuid    = vsphere_content_library_item.template.id
+  template_uuid    = vsphere_content_library_item.ubuntu.id
   guest_id         = "ubuntu64Guest"
   num_cpus         = 1
   memory           = 1024
@@ -67,12 +67,12 @@ module "vm_cluster_proxy" {
 }
 
 module "vm_cluster_controlplane" {
-  source = "./modules/vm"
+  source = "./modules/vm-ova-ubuntu"
 
   folder           = null
   resource_pool_id = vsphere_vapp_container.cluster.id
   datastore_id     = data.vsphere_datastore.datastore.id
-  template_uuid    = vsphere_content_library_item.template.id
+  template_uuid    = vsphere_content_library_item.ubuntu.id
   guest_id         = "ubuntu64Guest"
   num_cpus         = 4
   memory           = 4096
@@ -84,12 +84,12 @@ module "vm_cluster_controlplane" {
 }
 
 module "vm_cluster_worker" {
-  source = "./modules/vm"
+  source = "./modules/vm-ova-ubuntu"
 
   folder           = null
   resource_pool_id = vsphere_vapp_container.cluster.id
   datastore_id     = data.vsphere_datastore.datastore.id
-  template_uuid    = vsphere_content_library_item.template.id
+  template_uuid    = vsphere_content_library_item.ubuntu.id
   guest_id         = "ubuntu64Guest"
   num_cpus         = 8
   memory           = 8192
@@ -101,15 +101,18 @@ module "vm_cluster_worker" {
 }
 
 module "vm_flatcar" {
-  source = "./modules/flatcar"
+  source = "./modules/vm-ova-flatcar"
 
-  folder           = "staging"
-  resource_pool_id = data.vsphere_resource_pool.emc_pool.id
-  datastore_id     = data.vsphere_datastore.datastore.id
-  template_uuid    = vsphere_content_library_item.flatcar.id
-  num_cpus         = 8
-  memory           = 8192
-  network_id       = vsphere_distributed_port_group.dpg.id
-  disk_size        = 128
-  vms              = ["flatcar"]
+  folder              = "staging"
+  resource_pool_id    = data.vsphere_resource_pool.emc_pool.id
+  datastore_id        = data.vsphere_datastore.datastore.id
+  template_uuid       = vsphere_content_library_item.flatcar.id
+  guest_id            = "other5xLinux64Guest"
+  num_cpus            = 2
+  memory              = 4096
+  network_id          = vsphere_distributed_port_group.dpg.id
+  disk_size           = 128
+  ignition_config_url = "http://pi2.kuin.sh/flatcar/ignition.json"
+
+  vms = ["flatcar"]
 }
