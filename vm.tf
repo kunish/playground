@@ -40,8 +40,8 @@ module "vm_large" {
   datastore_id     = data.vsphere_datastore.datastore.id
   template_uuid    = vsphere_content_library_item.ubuntu.id
   guest_id         = "ubuntu64Guest"
-  num_cpus         = 8
-  memory           = 8192
+  num_cpus         = 16
+  memory           = 16384
   network_id       = vsphere_distributed_port_group.dpg.id
   disk_size        = 128
   vapp_seedfrom    = "http://pi2.kuin.sh/homelab/"
