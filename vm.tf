@@ -29,7 +29,7 @@ module "vm_mini" {
   disk_size        = 32
   vapp_seedfrom    = "http://pi2.kuin.sh/homelab/"
 
-  vms = ["speedtest", "clash", "v2ray"]
+  vms = ["speedtest", "clash"]
 }
 
 module "vm_large" {
