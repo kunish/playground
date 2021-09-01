@@ -24,12 +24,12 @@ module "vm_mini" {
   template_uuid    = vsphere_content_library_item.ubuntu.id
   guest_id         = "ubuntu64Guest"
   num_cpus         = 1
-  memory           = 2048
+  memory           = 1024
   network_id       = data.vsphere_network.nic.id
   disk_size        = 32
   vapp_seedfrom    = "http://pi2.kuin.sh/homelab/"
 
-  vms = ["speedtest", "clash"]
+  vms = ["speedtest"]
 }
 
 module "vm_large" {
