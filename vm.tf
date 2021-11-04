@@ -10,7 +10,7 @@ module "vm_jarvy" {
   memory           = 4096
   network_id       = vsphere_distributed_port_group.dpg.id
   disk_size        = 64
-  vapp_seedfrom    = "http://pi2.kuin.sh/jarvy/"
+  vapp_seedfrom    = "http://pi1.kuin.sh/jarvy/"
 
   vms = ["jarvy-workstation"]
 }
@@ -27,7 +27,7 @@ module "vm_mini" {
   memory           = 1024
   network_id       = data.vsphere_network.nic.id
   disk_size        = 32
-  vapp_seedfrom    = "http://pi2.kuin.sh/homelab/"
+  vapp_seedfrom    = "http://pi1.kuin.sh/homelab/"
 
   vms = ["speedtest"]
 }
@@ -44,7 +44,7 @@ module "vm_large" {
   memory           = 16384
   network_id       = vsphere_distributed_port_group.dpg.id
   disk_size        = 128
-  vapp_seedfrom    = "http://pi2.kuin.sh/homelab/"
+  vapp_seedfrom    = "http://pi1.kuin.sh/homelab/"
 
   vms = ["workstation"]
 }
@@ -61,7 +61,7 @@ module "vm_cluster_proxy" {
   memory           = 1024
   network_id       = vsphere_distributed_port_group.dpg.id
   disk_size        = 32
-  vapp_seedfrom    = "http://pi2.kuin.sh/homelab/"
+  vapp_seedfrom    = "http://pi1.kuin.sh/homelab/"
 
   vms = ["cluster-proxy"]
 }
@@ -78,7 +78,7 @@ module "vm_cluster_controlplane" {
   memory           = 4096
   network_id       = vsphere_distributed_port_group.dpg.id
   disk_size        = 64
-  vapp_seedfrom    = "http://pi2.kuin.sh/homelab/"
+  vapp_seedfrom    = "http://pi1.kuin.sh/homelab/"
 
   vms = ["cluster-controlplane-1", "cluster-controlplane-2", "cluster-controlplane-3"]
 }
@@ -95,7 +95,7 @@ module "vm_cluster_worker" {
   memory           = 8192
   network_id       = vsphere_distributed_port_group.dpg.id
   disk_size        = 128
-  vapp_seedfrom    = "http://pi2.kuin.sh/homelab/"
+  vapp_seedfrom    = "http://pi1.kuin.sh/homelab/"
 
   vms = ["cluster-worker-1", "cluster-worker-2", "cluster-worker-3", "cluster-worker-4", "cluster-worker-5"]
 }
@@ -112,7 +112,7 @@ module "vm_flatcar" {
   memory              = 4096
   network_id          = vsphere_distributed_port_group.dpg.id
   disk_size           = 128
-  ignition_config_url = "http://pi2.kuin.sh/flatcar/ignition.json"
+  ignition_config_url = "http://pi1.kuin.sh/flatcar/ignition.json"
 
   vms = ["flatcar"]
 }
