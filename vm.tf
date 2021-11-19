@@ -133,3 +133,20 @@ module "vm_cluster_worker_staging" {
 
   vms = ["cluster-worker-1-staging", "cluster-worker-2-staging", "cluster-worker-3-staging"]
 }
+
+module "vm_ci" {
+  source = "./modules/vm-ova-ubuntu"
+
+  folder           = "production"
+  resource_pool_id = data.vsphere_resource_pool.emc_pool.id
+  datastore_id     = data.vsphere_datastore.datastore.id
+  template_uuid    = vsphere_content_library_item.ubuntu.id
+  guest_id         = "ubuntu64Guest"
+  num_cpus         = 8
+  memory           = 8192
+  network_id       = vsphere_distributed_port_group.dpg.id
+  disk_size        = 128
+  vapp_seedfrom    = "http://pi1.kuin.sh/homelab/"
+
+  vms = ["gitlab-runner"]
+}
