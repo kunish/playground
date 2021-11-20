@@ -15,23 +15,6 @@ module "vm_jarvy" {
   vms = ["jarvy-workstation"]
 }
 
-module "vm_mini" {
-  source = "./modules/vm-ova-ubuntu"
-
-  folder           = "production"
-  resource_pool_id = data.vsphere_resource_pool.nuc_pool.id
-  datastore_id     = data.vsphere_datastore.nuc.id
-  template_uuid    = vsphere_content_library_item.ubuntu.id
-  guest_id         = "ubuntu64Guest"
-  num_cpus         = 1
-  memory           = 1024
-  network_id       = data.vsphere_network.nic.id
-  disk_size        = 32
-  vapp_seedfrom    = "http://pi1.kuin.sh/homelab/"
-
-  vms = ["speedtest"]
-}
-
 module "vm_cluster_proxy" {
   source = "./modules/vm-ova-ubuntu"
 
