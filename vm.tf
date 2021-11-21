@@ -116,22 +116,3 @@ module "vm_ci" {
 
   vms = ["gitlab-runner"]
 }
-
-resource "proxmox_lxc" "alpine" {
-  target_node  = "pve"
-  hostname     = "alpine-pve"
-  ostemplate   = "local:vztmpl/alpine-3.14-default_20210623_amd64.tar.xz"
-  password     = "alpine"
-  unprivileged = true
-
-  rootfs {
-    storage = "local-lvm"
-    size    = "8G"
-  }
-
-  network {
-    name   = "eth0"
-    bridge = "vmbr0"
-    ip     = "dhcp"
-  }
-}
