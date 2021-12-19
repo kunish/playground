@@ -40,10 +40,10 @@ module "vm_cluster_controlplane" {
   datastore_id     = data.vsphere_datastore.datastore.id
   template_uuid    = vsphere_content_library_item.ubuntu.id
   guest_id         = "ubuntu64Guest"
-  num_cpus         = 4
-  memory           = 4096
+  num_cpus         = 1
+  memory           = 1024
   network_id       = vsphere_distributed_port_group.dpg.id
-  disk_size        = 64
+  disk_size        = 16
   vapp_seedfrom    = "http://pi1.kuin.sh/homelab/"
 
   vms = ["cluster-controlplane-1", "cluster-controlplane-2", "cluster-controlplane-3"]
@@ -57,10 +57,10 @@ module "vm_cluster_worker" {
   datastore_id     = data.vsphere_datastore.datastore.id
   template_uuid    = vsphere_content_library_item.ubuntu.id
   guest_id         = "ubuntu64Guest"
-  num_cpus         = 8
-  memory           = 8192
+  num_cpus         = 2
+  memory           = 2048
   network_id       = vsphere_distributed_port_group.dpg.id
-  disk_size        = 128
+  disk_size        = 16
   vapp_seedfrom    = "http://pi1.kuin.sh/homelab/"
 
   vms = ["cluster-worker-1", "cluster-worker-2", "cluster-worker-3", "cluster-worker-4", "cluster-worker-5"]
