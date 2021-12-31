@@ -40,7 +40,7 @@ module "vm_cluster_controlplane" {
   datastore_id     = data.vsphere_datastore.datastore.id
   template_uuid    = vsphere_content_library_item.ubuntu.id
   guest_id         = "ubuntu64Guest"
-  num_cpus         = 1
+  num_cpus         = 4
   memory           = 1024
   network_id       = vsphere_distributed_port_group.dpg.id
   disk_size        = 16
@@ -57,7 +57,7 @@ module "vm_cluster_worker" {
   datastore_id     = data.vsphere_datastore.datastore.id
   template_uuid    = vsphere_content_library_item.ubuntu.id
   guest_id         = "ubuntu64Guest"
-  num_cpus         = 2
+  num_cpus         = 4
   memory           = 2048
   network_id       = vsphere_distributed_port_group.dpg.id
   disk_size        = 16
@@ -74,7 +74,7 @@ module "vm_cluster_controlplane_staging" {
   datastore_id     = data.vsphere_datastore.datastore.id
   template_uuid    = vsphere_content_library_item.ubuntu.id
   guest_id         = "ubuntu64Guest"
-  num_cpus         = 1
+  num_cpus         = 4
   memory           = 2048
   network_id       = vsphere_distributed_port_group.dpg.id
   disk_size        = 16
@@ -91,7 +91,7 @@ module "vm_cluster_worker_staging" {
   datastore_id     = data.vsphere_datastore.datastore.id
   template_uuid    = vsphere_content_library_item.ubuntu.id
   guest_id         = "ubuntu64Guest"
-  num_cpus         = 2
+  num_cpus         = 4
   memory           = 4096
   network_id       = vsphere_distributed_port_group.dpg.id
   disk_size        = 32
