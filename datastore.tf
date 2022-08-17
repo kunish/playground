@@ -4,6 +4,6 @@ data "vsphere_datastore" "datastore" {
   datacenter_id = vsphere_datacenter.datacenter.moid
 
   depends_on = [
-    vsphere_host.emc
+    vsphere_host.box
   ]
 }

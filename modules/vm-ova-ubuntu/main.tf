@@ -16,16 +16,11 @@ resource "vsphere_virtual_machine" "vm" {
   resource_pool_id = var.resource_pool_id
   datastore_id     = var.datastore_id
 
-  # equivalent to disk.EnableUUID
   enable_disk_uuid = true
 
   guest_id = var.guest_id
   num_cpus = var.num_cpus
   memory   = var.memory
-
-  # https://kb.vmware.com/s/article/2007240
-  # esxi 7.0U2
-  hardware_version = 19
 
   wait_for_guest_net_timeout = 0
 

@@ -7,13 +7,7 @@ resource "vsphere_content_library" "library" {
 }
 
 resource "vsphere_content_library_item" "ubuntu" {
-  name       = "focal-server-cloudimg-amd64"
-  file_url   = "https://mirrors.tuna.tsinghua.edu.cn/ubuntu-cloud-images/focal/current/focal-server-cloudimg-amd64.ova"
-  library_id = vsphere_content_library.library.id
-}
-
-resource "vsphere_content_library_item" "flatcar" {
-  name       = "flatcar_production_vmware_ova"
-  file_url   = "https://stable.release.flatcar-linux.net/amd64-usr/current/flatcar_production_vmware_ova.ova"
+  name       = "jammy-server-cloudimg-amd64"
+  file_url   = "https://mirrors.tuna.tsinghua.edu.cn/ubuntu-cloud-images/jammy/current/jammy-server-cloudimg-amd64.ova"
   library_id = vsphere_content_library.library.id
 }
